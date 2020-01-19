@@ -8,17 +8,87 @@
 
 return [
     'jsonMSG' => [
-        'code' => '2001',
-        'msg' => '抱歉，API参数错误：',
+        'code' => 2001,
+        'msg'  => '抱歉，API参数错误：',
         'data' => [
             'apiVersion' => '20200118',
-            'valid' =>  false,
+            'valid'      => false,
         ]
     ],
 
     'action' => [
-        'getgamelist' => "getMobileGameAndVersion",
-        'getgamelist2' => "getMobileGameAndVersion2"
+        'getgamelist' => "getMobileGameAndVersion",    //[完成]获取游戏列表  client/base/src/app/views/WelcomeScene.lua
+
+        'getagentinfo' => "getagentinfo",             //获取代理信息 plaza/models/agent/AgentMsg.lua
+        'getreward'    => "getreward",               //获取代理奖励
+        'rewardrbill'  => "rewardrbill",               //获取领奖列表
+        'rewardrecord' => "rewardrecord",               //查下级
+        'agentrank'    => "agentrank",               //获取代理排行榜信息
+
+        'getmaillist' => "getmaillist",               //获取邮件列表   plaza/models/PlazaUIConfig.lua
+
+        'GetMobileLoginData'  => "GetMobileLoginData",               //获取手机登录时间    plaza/views/LogonScene.lua
+        'getmobileloginlater' => "getmobileloginlater",               //获取登陆成功数据  plaza/views/LogonScene.lua
+
+        'getuserwealth' => "getuserwealth",               //查询用户财富    plaza/views/ClientScene.lua
+
+        'getcode' => "getcode",               //获取代码       plaza/views/layer/logon/AccountRegisteLayer.lua
+
+        'SetMailState' => "SetMailState",               //设置邮件状态  plaza/views/layer/plaza/MailDesLayer.lua
+
+        'getsharereward' => "getsharereward",               //获取玩家信息  plaza/views/layer/plaza/SpreadLayer.lua
+        'sharetimesreward' => "sharetimesreward",           //分享时间奖励  plaza/views/layer/plaza/SpreadLayer.lua
+        'receivespreadaward' => "receivespreadaward",       //接受预先奖励  plaza/views/layer/plaza/SpreadLayer.lua
+
+        'GetUserInfo' => "GetUserInfo",               //获取玩家信息  plaza/views/layer/plaza/club/ClubTableInfoLayer.lua
+
+        'GetGroupBattleRecord' => "GetGroupBattleRecord",   //获取小组战斗记录  plaza/views/layer/plaza/club/ClubMyDetailLayer.lua
+
+        'getrankingdata' => "getrankingdata",               //获得排名数据  plaza/views/layer/plaza/RankListLayer.lua
+
+        'setpassword' => "setpassword",                   //设置密码  plaza/views/layer/plaza/AgentLayer.lua
+        'bindagent' => "bindagent",                       //绑定代理  plaza/views/layer/plaza/AgentLayer.lua
+        'getreturnawardconfig' => "getreturnawardconfig", //返利比例  plaza/views/layer/plaza/AgentLayer.lua
+        'getnicknamebygameid' => "getnicknamebygameid",   //获取昵称
+
+        'buydiam' => "buydiam",               //购买diam  plaza/views/layer/plaza/DiamondBuyLayer.lua
+
+        'getquestionandanswerlist' => "getquestionandanswerlist",  //领取奖励  plaza/views/layer/plaza/HelpLayer.lua
+
+        'getonlinewechatlist' => "getonlinewechatlist",     //获取在线微信列表  plaza/views/layer/plaza/ShopLayer.lua
+        'GetPayProduct' => "GetPayProduct",                 //查询支付产品  plaza/views/layer/plaza/ShopLayer.lua
+        'diamondexchgold' => "diamondexchgold",             //兑换金币  plaza/views/layer/plaza/ShopLayer.lua
+        'createpayorder' => "createpayorder",               //新建支付订单  plaza/views/layer/plaza/ShopLayer.lua
+
+        'getturntablerecord' => "getturntablerecord",     // [完成]自己的得奖记录  plaza/views/layer/plaza/LuckyLayer.lua
+        'getturntablemsg' => "getturntablemsg",           //实时滚动数据  plaza/views/layer/plaza/LuckyLayer.lua
+        'getturntables' => "getturntables",               //转盘数据  plaza/views/layer/plaza/LuckyLayer.lua
+        'startturntable' => "startturntable",             //
+
+        'imgpay' => "imgpay",             //支付图片     plaza/views/layer/plaza/recharge/RechargeDetail.lua
+
+        'paylist' => "paylist",             //支付列表   plaza/views/layer/plaza/recharge/RechargeLayer.lua
+
+        'bindingpayee' => "bindingpayee",             //建立支付 plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
+        'withdrawal' => "withdrawal",             //退出      plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
+        'getvilabet' => "getvilabet",             //取得活力      plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
+
+        'bankpay' => "bankpay",             //支付银行信息 plaza/views/layer/plaza/recharge/DetailBank.lua
+
+        'drawalrecord' => "drawalrecord",             //提款记录   plaza/views/layer/plaza/recharge/RecordLayer.lua
+        'payrecord' => "payrecord",             //支付记录
+
+        'getvipinfo' => "getvipinfo",             //获取VIP信息    plaza/views/layer/plaza/VipLayer.lua
+        'getvipreward' => "getvipreward",             //获得VIP奖励    plaza/views/layer/plaza/VipLayer.lua
+
+        'recordtreasuretrade' => "recordtreasuretrade", //记录宝藏交易   plaza/views/layer/plaza/ucenter/TurnoverInfoLayer.lua
+
+        'getbattlerecord' => "getbattlerecord",             //请求房间数据    plaza/views/layer/plaza/video/VideoMarkListLayer.lua
+
+        'GetGameIntroList' => "GetGameIntroList",             //请求玩法列表  plaza/views/layer/plaza/PlazaIntroductionLayer.lua
+
+        'receiverankingaward' => "receiverankingaward",       //领取奖励  plaza/views/layer/plaza/RewardLayer.lua
+        'receiveregistergrant' => "receiveregistergrant",     //获得注册补助金  plaza/views/layer/plaza/RewardLayer.lua
     ]
 //,
 //

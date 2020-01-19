@@ -7,12 +7,14 @@
  */
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 
 
 class NetfoxController extends Controller
 {
     protected $gameService;
+
     public function __construct()
     {
         $this->gameService = app('gameService');
