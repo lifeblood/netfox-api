@@ -22,6 +22,7 @@ $app = new Laravel\Lumen\Application(
 );
 
 $app->configure('databases');
+$app->configure('NetFox');
 
 $app->withFacades();
 

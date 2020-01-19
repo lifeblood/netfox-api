@@ -21,5 +21,5 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'WS'], function () use ($router) {
-    $router->get('NewMoblieInterface.ashx', 'BootstrapController@init');
+    $router->get('NewMoblieInterface.ashx', 'NetfoxController@NewMoblieInterface');
 });
