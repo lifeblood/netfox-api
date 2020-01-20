@@ -10,6 +10,7 @@ namespace App\Http\Services;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Services\FacadeManager;
 use App\Http\Services\GameWeb\AccountsDataProvider;
 use App\Http\Services\GameWeb\RecordDataProvider;
 
@@ -29,8 +30,9 @@ class GameService
             $funcName = config('NetFox.action.' . $name);
             return $this->$funcName($request);
         } catch (\Error $e) {
-            $this->jsonMSG['msg'] = '抱歉， ' . $name . ' API 不存在!'.$e->getMessage();;
-            return $this->jsonMSG;
+            $jsonMSG = config('NetFox.jsonMSG');
+            $jsonMSG['msg'] = '抱歉， ' . $name . ' API 不存在!'.$e->getMessage();
+            return $jsonMSG;
         }
     }
 
@@ -56,8 +58,19 @@ class GameService
         return $data;
     }
 
-    //
-    public function getturntablerecord($request)
+    // 启动转盘
+    public function startTurnTable($request) {
+        return FacadeManager::CreatTurnTable($request);
+
+    }
+
+    //实时滚动数据
+    public function getTurnTableMsg() {
+        return FacadeManager::CreatTurnTableDate();
+    }
+
+    //自己的得奖记录
+    public function getTurnTableRecord($request)
     {
         $userId  = $request->all()['userid'];
         $index   = $request->all()['index'];
@@ -103,9 +116,9 @@ class GameService
             ->get();
 
         $data = [
-            'code'        => '0',
+            'code'        => 0,
             'msg'         => '',
-            'apiVersion'  => '20200118',
+            'apiVersion'  => 20200118,
             'valid'       => true,
             'downloadUrl' => $lobbyConfig->Field1,
             'reversion'   => $lobbyConfig->Field2,

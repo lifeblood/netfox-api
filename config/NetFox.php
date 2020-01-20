@@ -16,6 +16,8 @@ return [
         ]
     ],
 
+    'turnName' => [ 0 => '白银转盘', 1 => '黄金转盘', 3 => '钻石转盘'],
+
     'action' => [
         'getgamelist' => "getMobileGameAndVersion",    //[完成]获取游戏列表  client/base/src/app/views/WelcomeScene.lua
 
@@ -60,10 +62,10 @@ return [
         'diamondexchgold' => "diamondexchgold",             //兑换金币  plaza/views/layer/plaza/ShopLayer.lua
         'createpayorder' => "createpayorder",               //新建支付订单  plaza/views/layer/plaza/ShopLayer.lua
 
-        'getturntablerecord' => "getturntablerecord",     // [完成]自己的得奖记录  plaza/views/layer/plaza/LuckyLayer.lua
-        'getturntablemsg' => "getturntablemsg",           //实时滚动数据  plaza/views/layer/plaza/LuckyLayer.lua
+        'getturntablerecord' => "getTurnTableRecord",     // [完成]自己的得奖记录  plaza/views/layer/plaza/LuckyLayer.lua
+        'getturntablemsg' => "getTurnTableMsg",           //实时滚动数据  plaza/views/layer/plaza/LuckyLayer.lua
         'getturntables' => "getturntables",               //转盘数据  plaza/views/layer/plaza/LuckyLayer.lua
-        'startturntable' => "startturntable",             //
+        'startturntable' => "startTurnTable",             //启动转盘
 
         'imgpay' => "imgpay",             //支付图片     plaza/views/layer/plaza/recharge/RechargeDetail.lua
 
@@ -90,18 +92,18 @@ return [
         'receiverankingaward' => "receiverankingaward",       //领取奖励  plaza/views/layer/plaza/RewardLayer.lua
         'receiveregistergrant' => "receiveregistergrant",     //获得注册补助金  plaza/views/layer/plaza/RewardLayer.lua
     ]
-//,
-//
-//    'db' => [
-//        'Accounts' => env('DB_DATABASE_Accounts'),
-//        'Agent' => env('DB_DATABASE_Agent'),
-//        'GameMatch' => env('DB_DATABASE_GameMatch'),
-//        'GameScore' => env('DB_DATABASE_GameScore'),
-//        'Group' => env('DB_DATABASE_Group'),
-//        'NativeWeb' => env('DB_DATABASE_NativeWeb'),
-//        'Platform' => env('DB_DATABASE_Platform'),
-//        'PlatformManager' => env('DB_DATABASE_PlatformManager'),
-//        'Record' => env('DB_DATABASE_Record'),
-//        'Treasure' => env('DB_DATABASE_Treasure'),
-//    ]
+,
+
+    'db' => [
+        'Accounts' => env('DB_DATABASE_Accounts'),
+        'Agent' => env('DB_DATABASE_Agent'),
+        'GameMatch' => env('DB_DATABASE_GameMatch'),
+        'GameScore' => env('DB_DATABASE_GameScore'),
+        'Group' => env('DB_DATABASE_Group'),
+        'NativeWeb' => env('DB_DATABASE_NativeWeb'),
+        'Platform' => env('DB_DATABASE_Platform'),
+        'PlatformManager' => env('DB_DATABASE_PlatformManager'),
+        'Record' => env('DB_DATABASE_Record'),
+        'Treasure' => env('DB_DATABASE_Treasure'),
+    ]
 ];

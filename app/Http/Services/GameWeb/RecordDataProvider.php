@@ -24,6 +24,7 @@ class RecordDataProvider
     {
         $size = '10';
         $res = RecordTurntable::where('UserID', '=', $userid)
+            ->lock('WITH(NOLOCK)')
             ->orderBy('Opentime', 'DESC')
             ->skip(0)->take($size)
             ->get();

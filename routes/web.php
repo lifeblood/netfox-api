@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
 
 
 $router->group(['prefix' => 'v1'], function () use ($router) {
-    $router->get('test', 'ExampleController@test');
+    $router->get('apilist', 'NetfoxController@ApiList');
 });
 
 $router->group(['prefix' => 'WS'], function () use ($router) {
