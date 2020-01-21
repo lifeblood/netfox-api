@@ -18,11 +18,20 @@ class PlatformDataProvider
     {
         //self::$db = '22222';
     }
+
     public static function GetTurntableConfigs() {
         $res = DB::connection(DB)->table('TurntableConfig')
             ->lock('WITH(NOLOCK)')
             ->select('*')
             ->orderBy('id')
+            ->get();
+        return $res;
+    }
+
+    public static function GetVipConfig() {
+        $res = DB::connection(DB)->table('VipConfig')
+            ->lock('WITH(NOLOCK)')
+            ->select('*')
             ->get();
         return $res;
     }

@@ -8,11 +8,14 @@
 
 namespace App\Http\Services;
 
+use App\Http\Services\GameWeb\RedisDataProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Services\FacadeManager;
 use App\Http\Services\GameWeb\AccountsDataProvider;
 use App\Http\Services\GameWeb\RecordDataProvider;
+use App\Http\Services\GameWeb\NativeWebDataProvider;
+
 
 
 class GameService
@@ -36,8 +39,12 @@ class GameService
         }
     }
 
-    //获取玩家信息
 
+    /**
+     * 获取玩家信息
+     * @param $request
+     * @return array
+     */
     public function GetUserInfo($request)
     {
         $userId   = $request->all()['userid'];
@@ -58,7 +65,30 @@ class GameService
         return $data;
     }
 
-    // 启动转盘
+
+    /**
+     * 分享玩家彩金
+     * @return array
+     */
+    public function getShareReward() {
+        return NativeWebDataProvider::GetShareRewardData();
+    }
+
+
+    /**
+     * 获取VIP信息
+     * @param $request
+     */
+    public function getVipInfo($request) {
+        return FacadeManager::getVipInfoData($request);
+    }
+
+
+    /**
+     * 启动转盘
+     * @param $request
+     * @return array|mixed
+     */
     public function startTurnTable($request) {
         return FacadeManager::CreatTurnTable($request);
 
@@ -66,7 +96,8 @@ class GameService
 
     //实时滚动数据
     public function getTurnTableMsg() {
-        return FacadeManager::CreatTurnTableDate();
+        $data = RedisDataProvider::getRedisTurntableMsg();
+        return $data;
     }
 
     //自己的得奖记录
@@ -95,10 +126,25 @@ class GameService
         return $data;
     }
 
+    //获得排名数据
+    public function getRankingData($request) {
+        $userId  = $request->all()['userid'] ?? 0;
+        $typeId  = $request->all()['typeid'];
+
+        try {
+            $arr = [1, 2, 3, 4, 5, 6];
+            $data = NativeWebDataProvider::GetDayRankingData($userId, $arr[$typeId - 1]);
+
+        } catch (\Exception $e){
+            $data        = config('NetFox.jsonMSG');
+            $data['msg'] .= 'typeId 参数不合法！';
+        }
+        return $data;
+    }
+
 
     public function getMobileGameAndVersion($request)
     {
-//        dd($request->all());
         // 获取大厅版本配置
         $db          = env('DB_DATABASE_NativeWeb');
         $lobbyConfig = DB::connection($db)->table('ConfigInfo')

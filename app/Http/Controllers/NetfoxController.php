@@ -10,6 +10,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
+use Carbon\Carbon;
 
 class NetfoxController extends Controller
 {
@@ -23,7 +25,10 @@ class NetfoxController extends Controller
     public function ApiList()
     {
         $apiList = config('NetFox.action');
-        return response()->json($apiList);
+        //return response()->json($apiList);
+        //Redis::setex('site_name', 10, 'Lumen的redis');
+        //return Redis::get('site_name');
+        return Carbon::now()->toDateTimeString();
     }
 
     public function NewMoblieInterface(Request $request)
@@ -36,6 +41,6 @@ class NetfoxController extends Controller
             Log::error('JSON: xxxx' . $e->getPrevious());
             $jsonMSG['msg'] .= $e->getMessage();
         }
-        return response()->json($jsonMSG);
+        return self::json($jsonMSG);
     }
 }

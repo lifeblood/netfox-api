@@ -15,6 +15,7 @@ return [
             'valid'      => false,
         ]
     ],
+    'redisPrefix' => 'NetFox',
 
     'turnName' => [ 0 => '白银转盘', 1 => '黄金转盘', 3 => '钻石转盘'],
 
@@ -38,7 +39,7 @@ return [
 
         'SetMailState' => "SetMailState",               //设置邮件状态  plaza/views/layer/plaza/MailDesLayer.lua
 
-        'getsharereward' => "getsharereward",               //获取玩家信息  plaza/views/layer/plaza/SpreadLayer.lua
+        'getsharereward' => "getShareReward",               //[完成] 分享玩家彩金  plaza/views/layer/plaza/SpreadLayer.lua
         'sharetimesreward' => "sharetimesreward",           //分享时间奖励  plaza/views/layer/plaza/SpreadLayer.lua
         'receivespreadaward' => "receivespreadaward",       //接受预先奖励  plaza/views/layer/plaza/SpreadLayer.lua
 
@@ -46,7 +47,7 @@ return [
 
         'GetGroupBattleRecord' => "GetGroupBattleRecord",   //获取小组战斗记录  plaza/views/layer/plaza/club/ClubMyDetailLayer.lua
 
-        'getrankingdata' => "getrankingdata",               //获得排名数据  plaza/views/layer/plaza/RankListLayer.lua
+        'getrankingdata' => "getRankingData",               //[完成] 获得排名数据  plaza/views/layer/plaza/RankListLayer.lua
 
         'setpassword' => "setpassword",                   //设置密码  plaza/views/layer/plaza/AgentLayer.lua
         'bindagent' => "bindagent",                       //绑定代理  plaza/views/layer/plaza/AgentLayer.lua
@@ -62,10 +63,10 @@ return [
         'diamondexchgold' => "diamondexchgold",             //兑换金币  plaza/views/layer/plaza/ShopLayer.lua
         'createpayorder' => "createpayorder",               //新建支付订单  plaza/views/layer/plaza/ShopLayer.lua
 
-        'getturntablerecord' => "getTurnTableRecord",     // [完成]自己的得奖记录  plaza/views/layer/plaza/LuckyLayer.lua
-        'getturntablemsg' => "getTurnTableMsg",           //实时滚动数据  plaza/views/layer/plaza/LuckyLayer.lua
-        'getturntables' => "getturntables",               //转盘数据  plaza/views/layer/plaza/LuckyLayer.lua
-        'startturntable' => "startTurnTable",             //启动转盘
+        'getturntablerecord' => "getTurnTableRecord",     // [完成] 自己的得奖记录  plaza/views/layer/plaza/LuckyLayer.lua
+        'getturntablemsg' => "getTurnTableMsg",           //[完成] 实时滚动数据  plaza/views/layer/plaza/LuckyLayer.lua
+        'getturntables' => "getturntables",               // 转盘数据  plaza/views/layer/plaza/LuckyLayer.lua
+        'startturntable' => "startTurnTable",             //[完成]启动转盘
 
         'imgpay' => "imgpay",             //支付图片     plaza/views/layer/plaza/recharge/RechargeDetail.lua
 
@@ -80,7 +81,7 @@ return [
         'drawalrecord' => "drawalrecord",             //提款记录   plaza/views/layer/plaza/recharge/RecordLayer.lua
         'payrecord' => "payrecord",             //支付记录
 
-        'getvipinfo' => "getvipinfo",             //获取VIP信息    plaza/views/layer/plaza/VipLayer.lua
+        'getvipinfo' => "getVipInfo",             //[完成] 获取VIP信息    plaza/views/layer/plaza/VipLayer.lua
         'getvipreward' => "getvipreward",             //获得VIP奖励    plaza/views/layer/plaza/VipLayer.lua
 
         'recordtreasuretrade' => "recordtreasuretrade", //记录宝藏交易   plaza/views/layer/plaza/ucenter/TurnoverInfoLayer.lua

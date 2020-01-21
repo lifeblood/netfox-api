@@ -14,18 +14,26 @@ class AccountsDataProvider
 {
     private static $db = 'WHQJAccountsDB';
 
-    public static function GetAccountsInfoByUserID($userid) {
+    /**
+     * @param $userid
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     */
+    public static function GetAccountsInfoByUserID($userId) {
         $res = DB::connection(self::$db)->table('AccountsInfo')
             ->lock('WITH(NOLOCK)')
             ->select('UserID','GameID','SpreaderID','NickName','PassPortID','Compellation','FaceID',
                 'CustomID','RegisterOrigin','AgentID','RegisterIP','LastLogonIP','UnderWrite','PlaceName','UserUin',
                 'AgentID','RegisterMobile')
-            ->where('UserID','=',$userid)
+            ->where('UserID','=',$userId)
             ->first();
         return $res;
     }
 
-    // 随机获取用户信息
+
+    /**
+     * 随机获取用户信息
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     */
     public static function getRandomAndroid() {
         $res = DB::connection(self::$db)->table('AccountsInfo')
             ->lock('WITH(NOLOCK)')

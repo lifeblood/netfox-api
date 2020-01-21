@@ -125,11 +125,24 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
+            'timezone'  => env('DB_TIMEZONE','+00:00'),
             'options' => array(
                 PDO::ATTR_STRINGIFY_FETCHES => false,
                 PDO::SQLSRV_ATTR_FETCHES_NUMERIC_TYPE => true
             ),
 //            'prefix_indexes' => true,
         ],
+    ],
+
+    'redis' => [
+        'cluster' => false,
+        'client' => env('REDIS_CLIENT', 'predis'),
+        'default' => [
+            'host'     => env('REDIS_HOST', '127.0.0.1'),
+            'port'     => env('REDIS_PORT', 6379),
+            'database' => env('REDIS_DATABASE', 0),
+            'password' => env('REDIS_PASSWORD', ''),
+        ],
+
     ],
 ];
