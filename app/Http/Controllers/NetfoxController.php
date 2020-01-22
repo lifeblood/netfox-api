@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\GameServiceFacade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
@@ -16,10 +17,14 @@ use Carbon\Carbon;
 class NetfoxController extends Controller
 {
     protected $gameService;
+    private $funcMap, $data;
 
     public function __construct()
     {
         $this->gameService = app('gameService');
+        $this->funcMap = config('NetFox.action');
+        $this->data = config('NetFox.jsonMSG');
+
     }
 
     public function ApiList()
@@ -34,13 +39,12 @@ class NetfoxController extends Controller
     public function NewMoblieInterface(Request $request)
     {
         try {
-            $action  = $request->all()['action'];
-            $jsonMSG = $this->gameService->factory($action, $request);
+            $action = $this->funcMap[$request->all()['action']];
+            $this->data = $this->gameService->{$action}($request);
         } catch (\Exception $e) {
-            $jsonMSG = config('NetFox.jsonMSG');
             Log::error('JSON: xxxx' . $e->getPrevious());
-            $jsonMSG['msg'] .= $e->getMessage();
+            $this->data['msg'] .= $e->getMessage();
         }
-        return self::json($jsonMSG);
+        return self::json($this->data);
     }
 }

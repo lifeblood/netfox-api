@@ -10,12 +10,14 @@ namespace App\Http\Services\GameWeb;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Str;
 
 
 class TreasureDataProvider
 {
     private static $db = 'WHQJTreasureDB';
     private static $redisLimit = 19;
+    private static $pageLimit = 6;
 
     public static function GetValidBetByUid($userId)
     {
@@ -28,9 +30,10 @@ class TreasureDataProvider
     }
 
     //存入Redis
-    public static function PushTurnTableRecord($record, $bBord) {
-        $openListKey = config('NetFox.redisPrefix').':getturntablemsg:openList';
-        $bigListKey = config('NetFox.redisPrefix').':getturntablemsg:bigList';
+    public static function PushTurnTableRecord($record, $bBord)
+    {
+        $openListKey = config('NetFox.redisPrefix') . ':getturntablemsg:openList';
+        $bigListKey  = config('NetFox.redisPrefix') . ':getturntablemsg:bigList';
         Redis::lpush($openListKey, json_encode($record));
         Redis::ltrim($openListKey, 0, self::$redisLimit);
         if ($bBord == 1) {
@@ -68,4 +71,116 @@ class TreasureDataProvider
             ->first();
         return $res;
     }
+
+
+    public static function getPayRecord($userId, $index)
+    {
+
+        //三张表联合查询
+        $imgPayOrder = DB::connection(self::$db)->table('ImgPayOrder')
+            ->lock('WITH(NOLOCK)')
+            ->select('Amount as aaa', 'OrderStates', 'PayTime')
+            ->selectRaw('type =1')
+            ->where('UserID', '=', $userId);
+
+        $bankPayOrder = DB::connection(self::$db)->table('BankPayOrder')
+            ->select('Amount', 'OrderStates', 'PayTime')
+            ->selectRaw('type =2')
+            ->where('UserID', '=', $userId)
+            ->union($imgPayOrder);
+
+        $onLineOrder = DB::connection(self::$db)->table('OnLineOrder')
+            ->select('OrderAmount AS Amount', 'OrderStatus AS OrderStates', 'ApplyDate AS PayTime')
+            ->selectRaw('type =3')
+            ->where('UserID', '=', $userId)
+            ->where('OrderStatus', '>', 0)
+            ->union($bankPayOrder);
+
+        $querySql = $onLineOrder->toSql();
+
+        $result = DB::connection(self::$db)->table(DB::raw("($querySql) as a"))
+            ->mergeBindings($onLineOrder)
+            ->orderBy('PayTime', 'DESC')
+            ->paginate(self::$pageLimit, ['*'], 'index', $index);
+        //->skip($offset)->take(self::$pageLimit);
+
+        return $result;
+    }
+
+
+    /**
+     * 线上充值
+     * @param $payType
+     * @return string
+     */
+    public static function getOnLinePayList($payType)
+    {
+        $res = DB::connection(self::$db)->table('OnlinePayConfig')
+            ->lock('WITH(NOLOCK)')
+            ->select('*')
+            ->where('PayType', '=', $payType)
+            ->where('Nullity', '=', 0)
+            ->orderByDesc('PayIdentity')
+            ->orderByDesc('SortID')
+            ->get();
+        return $res;
+    }
+
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getBankPayList()
+    {
+        $res = DB::connection(self::$db)->table('OfficalBankPay')
+            ->lock('WITH(NOLOCK)')
+            ->select('*')
+            ->where('Nullity', '=', 0)
+            ->orderByDesc('SortID')
+            ->get();
+        return $res;
+    }
+
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getImgPayList()
+    {
+        $res = DB::connection(self::$db)->table('OfficalImgPay')
+            ->lock('WITH(NOLOCK)')
+            ->select('*')
+            ->where('Nullity', '=', 0)
+            ->orderByDesc('SortID')
+            ->get();
+        return $res;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getOnLineWeChatList()
+    {
+        $res = DB::connection(self::$db)->table('OnLineWeChat')
+            ->lock('WITH(NOLOCK)')
+            ->select('*')
+            ->where('Nullity', '<>', 1)
+            ->get();
+        foreach ($res as $key => $data) {
+            $res[$key]->CollectDate = Str::substr($data->CollectDate,0 , 19);
+        }
+        return $res;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+

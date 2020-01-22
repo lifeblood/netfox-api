@@ -20,7 +20,7 @@ return [
     'turnName' => [ 0 => '白银转盘', 1 => '黄金转盘', 3 => '钻石转盘'],
 
     'action' => [
-        'getgamelist' => "getMobileGameAndVersion",    //[完成]获取游戏列表  client/base/src/app/views/WelcomeScene.lua
+        'getgamelist' => "getGameList",    //[完成]获取游戏列表  client/base/src/app/views/WelcomeScene.lua
 
         'getagentinfo' => "getagentinfo",             //获取代理信息 plaza/models/agent/AgentMsg.lua
         'getreward'    => "getreward",               //获取代理奖励
@@ -70,7 +70,7 @@ return [
 
         'imgpay' => "imgpay",             //支付图片     plaza/views/layer/plaza/recharge/RechargeDetail.lua
 
-        'paylist' => "paylist",             //支付列表   plaza/views/layer/plaza/recharge/RechargeLayer.lua
+        'paylist' => "payList",             //[完成] 支付列表   plaza/views/layer/plaza/recharge/RechargeLayer.lua
 
         'bindingpayee' => "bindingpayee",             //建立支付 plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
         'withdrawal' => "withdrawal",             //退出      plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
@@ -79,7 +79,7 @@ return [
         'bankpay' => "bankpay",             //支付银行信息 plaza/views/layer/plaza/recharge/DetailBank.lua
 
         'drawalrecord' => "drawalrecord",             //提款记录   plaza/views/layer/plaza/recharge/RecordLayer.lua
-        'payrecord' => "payrecord",             //支付记录
+        'payrecord' => "payRecord",             // [完成] 支付记录   plaza\views\layer\plaza\recharge\RecordLayer.lua
 
         'getvipinfo' => "getVipInfo",             //[完成] 获取VIP信息    plaza/views/layer/plaza/VipLayer.lua
         'getvipreward' => "getvipreward",             //获得VIP奖励    plaza/views/layer/plaza/VipLayer.lua

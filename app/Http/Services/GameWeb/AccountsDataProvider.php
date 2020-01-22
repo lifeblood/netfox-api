@@ -15,7 +15,7 @@ class AccountsDataProvider
     private static $db = 'WHQJAccountsDB';
 
     /**
-     * @param $userid
+     * @param $userId
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
      */
     public static function GetAccountsInfoByUserID($userId) {
