@@ -15,9 +15,39 @@ use App\Http\Services\GameWeb\TreasureDataProvider;
 use Illuminate\Support\Str;
 
 
-class FacadeManager
+class GameUtils
 {
     private static $multiple = 1000;
+
+
+    /**
+     * 构造订单号 (形如:20101201102322159111111)
+     * @param $prefix
+     * @return bool|string
+     */
+    public static function getOrderIDByPrefix($prefix) {
+        $defaultLength = 9;  // 32-9 = 23
+        $currentTime = Carbon::now()->format('YmdHisu') . rand(100, 999); // 20 +3 = 23
+        $tradeNoBuffer = $prefix . $currentTime;
+        $offset = strlen($prefix) - $defaultLength;
+        if ($offset > 0) {
+            $tradeNoBuffer = substr($tradeNoBuffer,0, -$offset);
+        }
+        return $tradeNoBuffer;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**

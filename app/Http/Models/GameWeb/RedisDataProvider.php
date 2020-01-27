@@ -6,7 +6,7 @@
  * Time: 12:29
  */
 
-namespace App\Http\Services\GameWeb;
+namespace App\Http\Models\GameWeb;
 
 use Illuminate\Support\Facades\Redis;
 

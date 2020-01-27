@@ -6,18 +6,20 @@
  * Time: 17:33
  */
 
-namespace App\Http\Services\GameWeb;
+namespace App\Http\Models\GameWeb;
+
 
 use Illuminate\Support\Facades\DB;
 use App\Http\Models\GameWeb\RecordTurntable;
 
+
 class RecordDataProvider
 {
-    private static $db;
+    private static $db = 'WHQJRecordDB';
+    private static $pageLimit = 6;
 
     public function __construct()
     {
-        self::$db = env('DB_DATABASE_Record');
     }
 
     public static function GetRecordTurntableByUserID($userid, $index, $size)
@@ -38,5 +40,14 @@ class RecordDataProvider
 //            ->orderBy('Opentime', 'DESC')
 //            ->skip(0)->take($size)
 //            ->get();
+    }
+
+    public static function getRewardDrawalBill($userId, $pageIndex) {
+        $res = DB::connection(self::$db)->table('RecordAgentReward')
+            ->lock('WITH(NOLOCK)')
+            ->select('*')
+            ->where('UserID','=',$userId)
+            ->paginate(self::$pageLimit, ['*'], 'pageIndex', $pageIndex);;
+        return $res;
     }
 }

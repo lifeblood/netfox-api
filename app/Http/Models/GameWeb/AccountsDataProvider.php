@@ -6,13 +6,14 @@
  * Time: 16:00
  */
 
-namespace App\Http\Services\GameWeb;
+namespace App\Http\Models\GameWeb;
 use Illuminate\Support\Facades\DB;
 
 
 class AccountsDataProvider
 {
     private static $db = 'WHQJAccountsDB';
+    private static $pageLimit = 6;
 
     /**
      * @param $userId
@@ -43,5 +44,33 @@ class AccountsDataProvider
             ->skip(0)->take(1)
             ->first();
         return $res;
+    }
+
+    public static function getRewardRecord($userId, $index) {
+        $res = DB::table(self::$db.'.dbo.AccountsInfo as a')
+            ->join('WHQJTreasureDB.dbo.AgentInfo as r', 'a.UserID', '=', 'r.UserID')
+            ->select('a.GameID', 'a.NickName', 'r.BeggarNumber', 'r.AllReward','r.Reward','r.BackMoney')
+            ->where('r.ParentID','=', $userId)
+            ->paginate(self::$pageLimit, ['*'], 'index', $index);
+        return $res;
+    }
+
+
+    /**
+     * 获取登录成功后数据
+     * @param $userId
+     */
+    public static function getMobileLoginLaterData($userId) {
+        $params = [':dwUserID' => $userId];
+        $data = [];
+        try {
+            $data = DB::connection(self::$db)->select("exec NET_PW_GetMobileLoginLater :dwUserID", $params);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 'IMSSP') {   //SQLSTATE[IMSSP]: The active result for the query contains no fields.
+
+            }
+        }
+        dd($data);
+
     }
 }

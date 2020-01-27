@@ -7,6 +7,9 @@
  */
 
 namespace App\Http\Services\GameWeb;
+use App\Http\Models\GameWeb\TreasureDataProvider;
+use App\Http\Models\GameWeb\PlatformDataProvider;
+use App\Http\Models\GameWeb\AccountsDataProvider;
 use Carbon\Carbon;
 
 

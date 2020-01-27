@@ -7,7 +7,7 @@
  */
 
 namespace App\Http\Services\GameWeb;
-
+use App\Http\Models\GameWeb\RedisDataProvider;
 
 class getTurnTableMsg
 {

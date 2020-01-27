@@ -6,7 +6,7 @@
  * Time: 14:58
  */
 
-namespace App\Http\Services\GameWeb;
+namespace App\Http\Models\GameWeb;
 
 use Illuminate\Support\Facades\DB;
 

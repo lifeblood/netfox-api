@@ -8,9 +8,8 @@
 
 namespace App\Http\Services\GameWeb;
 
-use App\Http\Services\GameWeb\AccountsDataProvider;
-use App\Http\Services\GameWeb\RecordDataProvider;
-use App\Http\Services\GameWeb\NativeWebDataProvider;
+use App\Http\Models\GameWeb\PlatformDataProvider;
+use App\Http\Models\GameWeb\TreasureDataProvider;
 
 
 class getVipInfo
