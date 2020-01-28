@@ -19,20 +19,21 @@ class NativeWebDataProvider
      * 获取分享玩家彩金数据
      * @return array
      */
-    public static function GetShareRewardData() {
-        $res = DB::connection(self::$db)->table('ShareConfig')
+    public static function GetShareRewardData()
+    {
+        $res     = DB::connection(self::$db)->table('ShareConfig')
             ->lock('WITH(NOLOCK)')
             ->select('*')
             ->where('ID', '=', 1)
             ->first();
         $res->ID = 0;
-        $data   = [
+        $data    = [
             'code' => 0,
             'msg'  => '',
             'data' => [
                 'apiVersion' => 20200118,
                 'valid'      => true,
-                'list'     => [$res]
+                'list'       => [$res]
             ]
         ];
         return $data;
@@ -62,5 +63,30 @@ class NativeWebDataProvider
             ]
         ];
         return $data;
+    }
+
+    public static function getTimesReward($userId, $clientIP)
+    {
+        $params = [
+            ':userid'      => $userId,
+            ':strClientIP' => $clientIP,
+        ];
+        $res    = DB::connection(self::$db)->select("DECLARE @res int;
+        exec @res = PW_TimesReward @userid=:userid, @strClientIP=:strClientIP; ", $params);
+
+        return current($res);
+    }
+
+    /**
+     * 获取配置信息
+     * @param $configKey
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     */
+    public static function getConfigInfo($configKey) {
+        $res = DB::connection(self::$db)->table('ConfigInfo')
+            ->select('Field1', 'Field2', 'Field3', 'Field4', 'Field5', 'Field6', 'Field7', 'Field8', 'Field9', 'Field10', 'Field11', 'Field12', 'Field13')
+            ->where('ConfigKey', '=', $configKey)
+            ->first();
+        return $res;
     }
 }

@@ -290,6 +290,74 @@ class TreasureDataProvider extends BaseService
         return current($res)->customResult;
 
     }
+
+    /**
+     * 购买金币
+     * @param $userId
+     * @param $number
+     * @return mixed
+     */
+    public static function buyDiam($userId, $number) {
+        $params = [
+            ':dwUserID'  => $userId,
+            ':Number'    => $number,
+        ];
+        $res    = DB::connection(self::$db)->select("DECLARE @customResult NVARCHAR(127), @res int;
+        exec @res = NET_PW_GoldExchangeDiamond @dwUserID=:dwUserID, @Number=:Number, @strErrorDescribe=@customResult OUTPUT; select @res as res, @customResult as customResult", $params);
+        //dd($res);
+        return current($res);
+    }
+
+    public static function getDrawalRecord($userId, $type, $index) {
+        $cType = " 1=1 ";
+        if ($type > 0)
+        {
+            $cType = "OrderState = {type}";
+        }
+        $res = DB::connection(self::$db)->table('DrawalOrder')
+
+            ->select('*')
+            ->where('UserID', '=', $userId)
+            ->whereRaw($cType)
+            ->orderByDesc('CurrentTime')
+            //->toSql();
+            ->paginate(self::$pageLimit, ['*'], 'index', $index);
+        return $res;
+    }
+
+    public static function createDrawalOrder($order) {
+        $params = $order;
+        $res    = DB::connection(self::$db)->select("DECLARE @customResult NVARCHAR(127), @res int; 
+        exec @res = NET_PW_CreateDrawarOrder @dwUserID=:UserID, @DrawalType=:drawalType, @strOrdersID=:OrderID, 
+        @DrawalAmount=:Amount, @OrderCost=:OrderCost, @ClientIP=:IP,@strErrorDescribe=@customResult OUTPUT; 
+        select @res as res, @customResult as customResult", $params);
+        return current($res);
+    }
+
+    /**
+     * 银行支付信息
+     * @param $params
+     * @return mixed
+     */
+    public static function creatBankPayOrder($params) {
+        $res    = DB::connection(self::$db)->select("DECLARE @customResult NVARCHAR(127), @res int; 
+        exec @res = NET_PW_CreateBankPayOrder @dwUserID=:dwUserID, @cfgID=:cfgID , @Number=:Number, @amount=:amount, @payName=:payName, 
+        @payBank=:payBank, @TransferType=:TransferType, @strOrderID=:strOrderID, @strErrorDescribe=@customResult OUTPUT;
+         select @res as res, @customResult as customResult", $params);
+        //dd($res);
+        return current($res);
+    }
+
+    public static function getVipReward($userId, $type, $ip) {
+        $params = [
+            ':dwUserID'  => $userId,
+            ':Type'     => $type,
+            ':Ip'   => $ip
+        ];
+        $res    = DB::connection(self::$db)->select("DECLARE @customResult NVARCHAR(127), @Rewards DECIMAL;exec NET_PW_GetVipReward @dwUserID=:dwUserID, @Type=:Type,
+                @Ip=:Ip,  @Reward=@Rewards output,  @strErrorDescribe=@customResult output; select @Rewards as Rewards, @customResult as customResult", $params);
+        return current($res);
+    }
 }
 
 

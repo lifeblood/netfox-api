@@ -161,4 +161,23 @@ class AccountsDataProvider
             ->first();
         return $res;
     }
+
+    /**
+     * 绑定支付宝
+     * @param $userId
+     * @param $type
+     * @param $acc
+     * @return mixed
+     */
+    public static function postBandingPayee($userId, $type, $acc) {
+        $params = [
+            ':dwUserID'  => $userId,
+            ':Type'  => $type,
+            ':Acc'  => $acc,
+        ];
+        $res    = DB::connection(self::$db)->select("DECLARE @customResult NVARCHAR(127),@res int;
+        exec @res = NET_PW_BindPayee @dwUserID=:dwUserID, @Type=:Type, @Acc=:Acc, @strErrorDescribe=@customResult OUTPUT; select @res as code, @customResult as msg", $params);
+       // dd($res);
+        return current($res);
+    }
 }

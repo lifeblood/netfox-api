@@ -73,4 +73,21 @@ class RecordDataProvider
             ->paginate($pageSize, ['*'], 'pageIndex', $pageIndex);;
         return $res;
     }
+
+    /**
+     * 钻石流水记录
+     * @param $userId
+     * @param $pageIndex
+     * @param $pageSize
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public static function getDiamondStreamList($userId, $pageIndex, $pageSize) {
+        $res = DB::connection(self::$db)->table('RecordDiamondSerial')
+            ->lock('WITH(NOLOCK)')
+            ->select('SerialNumber', 'TypeID', 'CurDiamond', 'ChangeDiamond', 'CollectDate')
+            ->where('UserID','=',$userId)
+            ->orderByDesc('CollectDate')
+            ->paginate($pageSize, ['*'], 'pageIndex', $pageIndex);;
+        return $res;
+    }
 }
