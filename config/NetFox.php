@@ -27,6 +27,14 @@ return [
             'valid'      => false,
         ]
     ],
+    'SMS' => [ //短信发送
+       'SMS_content' => '【红牛科技】您的验证码:{code}', //短信模板
+       'qixintong' => [ // 渠道1, 企信通
+           'SMS_uid' => '46',
+           'SMS_acc' => 'shzx79',
+           'SMS_pwd' => '123456',
+       ]
+    ],
     'redisPrefix' => 'NetFox',
 
     'turnName' => [0 => '白银转盘', 1 => '黄金转盘', 3 => '钻石转盘'],
@@ -35,7 +43,7 @@ return [
         'getgamelist' => "getGameList",    //[完成]获取游戏列表  client/base/src/app/views/WelcomeScene.lua
 
         'getagentinfo' => "getAgentInfo",             //[完成] 获取代理信息 plaza/models/agent/AgentMsg.lua
-        'getreward'    => "getreward",               //获取代理奖励
+        'getreward'    => "getReward",               //[完成] 获取代理奖励
         'rewardrbill'  => "rewardrBill",               //[完成] 获取领奖列表记录
         'rewardrecord' => "rewardRecord",               //[完成] 查下级/推广明细
         'agentrank'    => "agentRank",               //[完成] 获取推广排行榜信息
@@ -47,7 +55,7 @@ return [
 
         'getuserwealth' => "getUserWealth",               //[完成] 查询用户财富    plaza/views/ClientScene.lua
 
-        'getcode' => "getcode",               //获取代码       plaza/views/layer/logon/AccountRegisteLayer.lua
+        'getcode' => "getCode",               // [完成] 获取手机验证码       plaza/views/layer/logon/AccountRegisteLayer.lua
 
         'SetMailState' => "SetMailState",               //设置邮件状态  plaza/views/layer/plaza/MailDesLayer.lua
 
@@ -96,7 +104,7 @@ return [
         'getvipinfo'   => "getVipInfo",             //[完成] 获取VIP信息    plaza/views/layer/plaza/VipLayer.lua
         'getvipreward' => "getvipreward",             //获得VIP奖励    plaza/views/layer/plaza/VipLayer.lua
 
-        'recordtreasuretrade' => "recordtreasuretrade", //记录宝藏交易   plaza/views/layer/plaza/ucenter/TurnoverInfoLayer.lua
+        'recordtreasuretrade' => "recordTreasureTrade", // [完成] 金币流水记录   plaza/views/layer/plaza/ucenter/TurnoverInfoLayer.lua
 
         'getbattlerecord' => "getbattlerecord",             //请求房间数据    plaza/views/layer/plaza/video/VideoMarkListLayer.lua
 

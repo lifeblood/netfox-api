@@ -19,8 +19,8 @@ class agentRank extends BaseService
      */
     public static function agentRank($request)
     {
-        $userId = $request->all()['userid'];
-        $type   = $request->all()['type'];
+        $userId = $request->input('userid');
+        $type   = $request->input('type');
         $list   = TreasureDataProvider::getAgentRank($userId, $type);
         $own    = TreasureDataProvider::getAgentRankCount($userId, $type);
 

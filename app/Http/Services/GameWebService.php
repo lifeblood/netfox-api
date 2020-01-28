@@ -12,7 +12,8 @@ namespace App\Http\Services;
 class GameWebService
 {
     /**
-     * 静态成品变量 保存全局实例
+     * PHP Patterns: Singleton ( 单例模式 )
+     * 静态成员变量 保存全局实例
      */
     private static $instance;
     private static $classPath = 'App\\Http\\Services\\GameWeb\\';
@@ -25,6 +26,10 @@ class GameWebService
     {
     }
 
+    /**
+     * @param $serviceName
+     * @return mixed
+     */
     public static function getInstance($serviceName)
     {
         if (is_null(static::$instance)) {

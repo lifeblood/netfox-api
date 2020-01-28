@@ -272,6 +272,24 @@ class TreasureDataProvider extends BaseService
                 :payLink, :amount, :payName, :strOrderID, :strErrorDescribe output", $params);
         return $res;
     }
+
+
+    /**
+     * 领取奖励
+     * @param $userId
+     * @return bool
+     */
+    public static function getReward($userId) {
+        $params = [
+            ':dwUserID'  => (int)$userId,
+           // ':strErrorDescribe'    => '',
+        ];
+        $res    = DB::connection(self::$db)->select("DECLARE @customResult NVARCHAR(127);
+        exec NET_PJ_GetReward @dwUserID=:dwUserID, @strErrorDescribe=@customResult OUTPUT; select @customResult as customResult", $params);
+//        dd($res);
+        return current($res)->customResult;
+
+    }
 }
 
 

@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Models\GameWeb;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
@@ -72,5 +73,92 @@ class AccountsDataProvider
         }
         dd($data);
 
+    }
+
+    /**
+     * 获取系统配置信息
+     * @param $key
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     */
+    public static function getSystemStatusInfo($key) {
+        $res = DB::connection(self::$db)->table('SystemStatusInfo')
+            ->lock('WITH(NOLOCK)')
+            ->select('StatusValue')
+            ->where('StatusName','=',$key)
+            ->first();
+        return $res;
+    }
+
+    /**
+     * 验证是否在规定时间内重复发送
+     * false: 没有重复
+     * true: 重复
+     * @param $mobile
+     * @param $minutes
+     * @return bool
+     */
+    public static function validSendOnTime($mobile, $minutes) {
+        $res = DB::connection(self::$db)->table('CheckCode')
+            ->lock('WITH(NOLOCK)')
+            ->select('*')
+            ->where('PhoneNum','=', $mobile)
+            ->whereRaw('GETDATE() < DATEADD(MINUTE,' . $minutes . ',CollectTime)')
+            ->orderByDesc('CollectTime')
+            ->skip(0)->take(1)
+            ->first();
+        return $res == null;
+    }
+
+
+    public static function insertSMSInfo($mobile, $code) {
+        //使用 transaction 方法时不需要手动回滚或提交：如果事务闭包中抛出异常，事务将会自动回滚；
+        //如果闭包执行成功，事务将会自动提交：
+        $res = DB::connection(self::$db)->transaction( function () use ($mobile, $code) {
+            DB::connection(self::$db)->table('CheckCode')
+                ->where('PhoneNum', '=', $mobile)->delete();
+
+
+            DB::connection(self::$db)->table('CheckCode')->insert(
+                ['PhoneNum'    => $mobile,
+                 'CheckCode'   => $code,
+                 'CollectTime' => DB::raw('getdate()'),
+                ]
+            );
+
+            DB::connection(self::$db)->table('SMSLog')->insert(
+                ['Mobile' => $mobile,
+                 'date'   => DB::raw('getdate()'),
+                ]
+            );
+         });
+    }
+
+
+    /**
+     * 根据账号获取用户信息
+     * @param $Accounts
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
+     */
+    public static function getAccountsInfoByAccounts($Accounts) {
+        $res = DB::connection(self::$db)->table('AccountsInfo')
+            ->lock('WITH(NOLOCK)')
+            ->select('UserID')
+            ->where('Accounts','=',$Accounts)
+            ->first();
+        return $res;
+    }
+
+    public static function getSMSLogCount($Mobile) {
+        $dt = Carbon::now();
+        $startOfDay = $dt->copy()->startOfDay(); //2017-05-15 00:00:00
+        $endOfDay = $dt->copy()->endOfDay();  //2017-05-15 23:59:59
+        $res = DB::connection(self::$db)->table('SMSLog')
+            ->lock('WITH(NOLOCK)')
+            ->selectRaw('isnull(count(id),0)')
+            ->where('Mobile','=',$Mobile)
+            ->where('date','>=',$startOfDay)
+            ->where('date','<=',$endOfDay)
+            ->first();
+        return $res;
     }
 }

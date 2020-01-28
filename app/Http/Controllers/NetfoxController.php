@@ -37,7 +37,10 @@ class NetfoxController extends Controller
         //Redis::setex('site_name', 10, 'Lumen的redis');
         //return Redis::get('site_name');
         //return Carbon::now()->toDateTimeString();
-        return FacadeManager::getOrderIDByPrefix('QrPayxxxx');
+        //return FacadeManager::getOrderIDByPrefix('QrPayxxxx');
+        $dt = Carbon::now();
+        echo $dt->copy()->startOfDay();
+        echo $dt->copy()->endOfDay();
     }
 
     public function NewMoblieInterface(Request $request)

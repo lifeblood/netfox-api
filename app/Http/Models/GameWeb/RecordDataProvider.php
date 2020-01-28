@@ -42,12 +42,35 @@ class RecordDataProvider
 //            ->get();
     }
 
+    /**
+     * @param $userId
+     * @param $pageIndex
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public static function getRewardDrawalBill($userId, $pageIndex) {
         $res = DB::connection(self::$db)->table('RecordAgentReward')
             ->lock('WITH(NOLOCK)')
-            ->select('*')
+            ->select(DB::raw('CONVERT(VARCHAR(19),drawalTime, 120) as DrawalTime'), 'GetMoney as DrawalMoney')
             ->where('UserID','=',$userId)
             ->paginate(self::$pageLimit, ['*'], 'pageIndex', $pageIndex);;
+        return $res;
+    }
+
+
+    /**
+     * 金币流水记录
+     * @param $userId
+     * @param $pageIndex
+     * @param $pageSize
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public static function getGoldStreamList($userId, $pageIndex, $pageSize) {
+        $res = DB::connection(self::$db)->table('RecordTreasureSerial')
+            ->lock('WITH(NOLOCK)')
+            ->select('SerialNumber', 'TypeID', 'CurScore', 'CurInsureScore', 'ChangeScore', 'CollectDate')
+            ->where('UserID','=',$userId)
+            ->orderByDesc('CollectDate')
+            ->paginate($pageSize, ['*'], 'pageIndex', $pageIndex);;
         return $res;
     }
 }
