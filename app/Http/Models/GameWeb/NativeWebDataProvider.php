@@ -8,10 +8,11 @@
 
 namespace App\Http\Models\GameWeb;
 
+use App\Http\Models\BaseModel;
 use Illuminate\Support\Facades\DB;
 
 
-class NativeWebDataProvider
+class NativeWebDataProvider extends BaseModel
 {
     private static $db = 'WHQJNativeWebDB';
 
@@ -84,9 +85,48 @@ class NativeWebDataProvider
      */
     public static function getConfigInfo($configKey) {
         $res = DB::connection(self::$db)->table('ConfigInfo')
-            ->select('Field1', 'Field2', 'Field3', 'Field4', 'Field5', 'Field6', 'Field7', 'Field8', 'Field9', 'Field10', 'Field11', 'Field12', 'Field13')
+            //->select('ConfigKey','Field1', 'Field2', 'Field3', 'Field4', 'Field5', 'Field6', 'Field7', 'Field8', 'Field9', 'Field10', 'Field11', 'Field12', 'Field13')
+            ->select('*')
             ->where('ConfigKey', '=', $configKey)
             ->first();
         return $res;
     }
+
+    /**
+     *获取手机登录数据
+     */
+    public static function getMobileLoginInfo() {
+        $sql = "exec NET_PW_GetMobileLoginData";
+        $data = parent::getMultiResultSet(self::$db, $sql);
+        //dd($data);
+        return $data;
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

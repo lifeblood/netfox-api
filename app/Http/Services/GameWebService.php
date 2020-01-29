@@ -7,7 +7,7 @@
  */
 
 namespace App\Http\Services;
-
+use Illuminate\Support\Facades\Log;
 
 class GameWebService
 {
@@ -15,7 +15,7 @@ class GameWebService
      * PHP Patterns: Singleton ( 单例模式 )
      * 静态成员变量 保存全局实例
      */
-    private static $instance;
+    private static $instance = null;
     private static $classPath = 'App\\Http\\Services\\GameWeb\\';
 
     /**
@@ -35,6 +35,9 @@ class GameWebService
         if (is_null(static::$instance)) {
             static::$instance = static::$classPath . $serviceName;
         }
+
+        Log::error('getInstance: ' . static::$instance);
+
         return static::$instance;
     }
 

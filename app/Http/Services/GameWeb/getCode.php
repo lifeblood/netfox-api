@@ -11,7 +11,6 @@ namespace App\Http\Services\GameWeb;
 
 use App\Http\Models\GameWeb\AccountsDataProvider;
 use App\Http\Services\BaseService;
-use App\Http\Services\SMS\QixintongMessage;
 use App\Http\Services\SMS\MessageContext;
 
 class getCode extends BaseService
@@ -88,14 +87,15 @@ class getCode extends BaseService
 
         }
 
-        $qxtMsg = new QixintongMessage(); // 企信通短信接口
-        $msgCtx  = new MessageContext($qxtMsg);
+        $msgChannel = config('NetFox.SMS.channel');  //new QixintongMessage()企信通短信接口
+        $msgCtx  = new MessageContext($msgChannel);
         $smsNumber = $msgCtx->SendMessage($Mobile);
 
 
         if ($smsNumber != '') {
             AccountsDataProvider::insertSMSInfo($Mobile, $smsNumber);
 
+            $data['msg'] = '短信发送成功！';
             $data['data'] = [ //账号未注册
                 'apiVersion' => '20200123',
                 'valid'      => true,

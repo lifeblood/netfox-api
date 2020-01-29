@@ -28,6 +28,7 @@ return [
         ]
     ],
     'SMS'         => [ //短信发送
+        'channel' => 'QixintongMessage',  //默认通道，企信通
         'SMS_content' => '【红牛科技】您的验证码:{code}', //短信模板
         'qixintong'   => [ // 渠道1, 企信通
             'SMS_uid' => '46',
@@ -73,18 +74,11 @@ return [
         'getrankingdata' => "getRankingData",                 //[完成] 获得排名数据  plaza/views/layer/plaza/RankListLayer.lua
 
         'setpassword'          => "setpassword",              //[没用到] 设置密码  plaza/views/layer/plaza/AgentLayer.lua
-        'bindagent'            => "bindagent",                //绑定代理  plaza/views/layer/plaza/AgentLayer.lua
-        'getreturnawardconfig' => "getreturnawardconfig",     //返利比例  plaza/views/layer/plaza/AgentLayer.lua
-        'getnicknamebygameid'  => "getnicknamebygameid",      //获取昵称
+        'bindagent'            => "bindagent",                //[没用到]绑定代理  plaza/views/layer/plaza/AgentLayer.lua
+        'getreturnawardconfig' => "getreturnawardconfig",     //[没用到]返利比例  plaza/views/layer/plaza/AgentLayer.lua
+        'getnicknamebygameid'  => "getnicknamebygameid",      //[没用到]获取昵称
 
         'buydiam' => "buyDiam",                               //[完成] 金币购买  plaza/views/layer/plaza/DiamondBuyLayer.lua
-
-        'getquestionandanswerlist' => "getquestionandanswerlist", // [没有用到] 领取奖励  plaza/views/layer/plaza/HelpLayer.lua
-
-        'getonlinewechatlist' => "getonlinewechatlist",       //[没有用到] 获取在线微信列表  plaza/views/layer/plaza/ShopLayer.lua
-        'GetPayProduct'       => "GetPayProduct",             //查询支付产品  plaza/views/layer/plaza/ShopLayer.lua
-        'diamondexchgold'     => "diamondexchgold",           //兑换金币  plaza/views/layer/plaza/ShopLayer.lua
-        'createpayorder'      => "createpayorder",            //新建支付订单  plaza/views/layer/plaza/ShopLayer.lua
 
         'getturntablerecord' => "getTurnTableRecord",         //[完成] 自己的得奖记录  plaza/views/layer/plaza/LuckyLayer.lua
         'getturntablemsg'    => "getTurnTableMsg",            //[完成] 实时滚动数据  plaza/views/layer/plaza/LuckyLayer.lua
@@ -117,8 +111,14 @@ return [
         'receiverankingaward'  => "receiverankingaward",      //领取奖励  plaza/views/layer/plaza/RewardLayer.lua
         'receiveregistergrant' => "receiveregistergrant",     //获得注册补助金  plaza/views/layer/plaza/RewardLayer.lua
 
-        'GetMobileLoginData'  => "GetMobileLoginData",        //获取手机登录时间    plaza/views/LogonScene.lua
-        'getmobileloginlater' => "getMobileLoginLater",       // 获取手机端登录后数据 loading时候加载  plaza/views/LogonScene.lua
+        'GetMobileLoginData'  => "getMobileLoginData",        //[完成] 获取手机登录时间    plaza/views/LogonScene.lua
+        'getmobileloginlater' => "getMobileLoginLater",       //[完成] 获取手机端登录后数据 loading时候加载  plaza/views/LogonScene.lua
+
+        'getquestionandanswerlist' => "getquestionandanswerlist", // [没有用到] 领取奖励  plaza/views/layer/plaza/HelpLayer.lua
+        'getonlinewechatlist' => "getonlinewechatlist",       //[没有用到] 获取在线微信列表  plaza/views/layer/plaza/ShopLayer.lua
+        'GetPayProduct'       => "GetPayProduct",             //查询支付产品  plaza/views/layer/plaza/ShopLayer.lua
+        'diamondexchgold'     => "diamondexchgold",           //兑换金币  plaza/views/layer/plaza/ShopLayer.lua
+        'createpayorder'      => "createpayorder",            //[没用到] 新建支付订单  plaza/views/layer/plaza/ShopLayer.lua
     ]
     ,
 

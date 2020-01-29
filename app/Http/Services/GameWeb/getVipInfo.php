@@ -14,6 +14,7 @@ use App\Http\Models\GameWeb\TreasureDataProvider;
 
 class getVipInfo
 {
+    private static $multiple = 1000;
     /**
      * 获取VIP信息
      * @param $request
@@ -34,7 +35,7 @@ class getVipInfo
         if ($userVip) {
             $userVipArr = [
                 'VipLevel'    => $userVip->VipLevel,
-                'FresReward'  => $userVip->FresReward,
+                'FresReward'  => $userVip->FreshReward,
                 'WeekReward'  => $userVip->WeekReward,
                 'MonthReward' => $userVip->MonthReward,
                 'Exp'         => $userVip->Score / self::$multiple,

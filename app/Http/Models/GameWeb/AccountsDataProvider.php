@@ -7,11 +7,12 @@
  */
 
 namespace App\Http\Models\GameWeb;
+use App\Http\Models\BaseModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
-class AccountsDataProvider
+class AccountsDataProvider extends BaseModel
 {
     private static $db = 'WHQJAccountsDB';
     private static $pageLimit = 6;
@@ -60,19 +61,14 @@ class AccountsDataProvider
     /**
      * 获取登录成功后数据
      * @param $userId
+     * @return array
      */
     public static function getMobileLoginLaterData($userId) {
+        $sql = "exec NET_PW_GetMobileLoginLater :dwUserID";
         $params = [':dwUserID' => $userId];
-        $data = [];
-        try {
-            $data = DB::connection(self::$db)->select("exec NET_PW_GetMobileLoginLater :dwUserID", $params);
-        } catch (\Illuminate\Database\QueryException $e) {
-            if ($e->getCode() == 'IMSSP') {   //SQLSTATE[IMSSP]: The active result for the query contains no fields.
-
-            }
-        }
-        dd($data);
-
+        $data = parent::getMultiResultSet(self::$db, $sql, $params);
+        //dd($data);
+        return $data;
     }
 
     /**

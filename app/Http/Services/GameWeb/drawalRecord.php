@@ -20,18 +20,19 @@ class drawalRecord extends BaseService
      * @param $request
      * @return mixed
      */
-    public static function drawalRecord($request) {
-        $userId = $request->input('userid');
-        $index = $request->input('index', 1);
-        $type = $request->input('type', 0);
-        $list = TreasureDataProvider::getDrawalRecord($userId, $type, $index);
-        $data = self::getJsonSuccess();
+    public static function drawalRecord($request)
+    {
+        $userId       = $request->input('userid');
+        $index        = $request->input('index', 1);
+        $type         = $request->input('type', 0);
+        $list         = TreasureDataProvider::getDrawalRecord($userId, $type, $index);
+        $data         = self::getJsonSuccess();
         $data['data'] = [
             'apiVersion' => '20200123',
             'valid'      => true,
             'index'      => $list->currentPage(),
             'pageCount'  => $list->lastPage(),
-            'list'        => $list->items()
+            'list'       => $list->items()
         ];
         return $data;
     }

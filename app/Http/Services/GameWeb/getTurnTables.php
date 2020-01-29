@@ -15,24 +15,25 @@ use App\Http\Services\BaseService;
 
 class getTurnTables extends BaseService
 {
-    public static function getTurnTables($request) {
-        $userId   = $request->input('userid');
-        $list     = PlatformDataProvider::GetTurntableConfigs();
-        $sList = [];
+    public static function getTurnTables($request)
+    {
+        $userId = $request->input('userid');
+        $list   = PlatformDataProvider::GetTurntableConfigs();
+        $sList  = [];
         $mgList = [];
         array_push($sList, $list[0], $list[5], $list[10]);
         array_push($mgList, $list[4], $list[9], $list[14]);
 
         $validBet = TreasureDataProvider::GetValidBetByUid($userId);
 
-        $data = self::getJsonSuccess();
+        $data         = self::getJsonSuccess();
         $data['data'] = [
-            'apiVersion' => '20200123',
-            'valid'      => true,
-            'list'        => $sList,
-            'icoList'        => $mgList,
-            'todayValibet'        => $validBet->TodayValiBet,
-            'GrandScore'        => $validBet->GrandScore,
+            'apiVersion'   => '20200123',
+            'valid'        => true,
+            'list'         => $sList,
+            'icoList'      => $mgList,
+            'todayValibet' => $validBet->TodayValiBet,
+            'GrandScore'   => $validBet->GrandScore,
         ];
         return $data;
     }

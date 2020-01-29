@@ -13,10 +13,10 @@ class getAgentInfoTest extends TestCase
     public function testExample()
     {
         $testUserId = '1891';
-        $key = 'getagentinfo';
-        $myDebugVar = array(1, 2, 3);
-//        fwrite(STDERR, print_r($myDebugVar, TRUE));
-        dd($this->get('/WS/NewMoblieInterface.ashx?action='.$key.'&userid='.$testUserId));
+        $key = 'getvipinfo';
+        $myDebugVar = '/WS/NewMoblieInterface.ashx?action='.$key.'&userid='.$testUserId;
+
+        $this->get($myDebugVar);
 
         $this->seeJson([
                 "code" => 0

@@ -15,19 +15,19 @@ class getAgentInfo extends BaseService
 {
     public static function getAgentInfo($request)
     {
-        $userId       = $request->all()['userid'];
-        $res          = TreasureDataProvider::getAgentInfo($userId);
-        $data         = self::getJsonSuccess();
+        $userId = $request->all()['userid'];
+        $res    = TreasureDataProvider::getAgentInfo($userId);
+        $data   = self::getJsonSuccess();
 
         $data['data'] = [
-            'apiVersion'          => '20200123',
-            'valid'               => true,
-            'Allperson'           => isset($res) ? $res->Allperson : 0,
-            'Immediateperson'     => isset($res) ? $res->Immediateperson : 0,
-            'ImmediateMoney'      => isset($res) ? $res->ImmediateMoney : 0,
-            'OtherMoney' => isset($res) ? $res->OtherMoney : 0,
-            'CurrReward'          => isset($res) ? $res->CurrReward : 0,
-            'HisMoney'            => isset($res) ? $res->HisMoney : 0,
+            'apiVersion'      => '20200123',
+            'valid'           => true,
+            'Allperson'       => isset($res) ? $res->Allperson : 0,
+            'Immediateperson' => isset($res) ? $res->Immediateperson : 0,
+            'ImmediateMoney'  => isset($res) ? $res->ImmediateMoney : 0,
+            'OtherMoney'      => isset($res) ? $res->OtherMoney : 0,
+            'CurrReward'      => isset($res) ? $res->CurrReward : 0,
+            'HisMoney'        => isset($res) ? $res->HisMoney : 0,
         ];
         return $data;
     }

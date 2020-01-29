@@ -31,10 +31,10 @@ class buyDiam extends BaseService
         $data = self::getJsonSuccess();
         $data = [
             'code' => $list->res,
-            'msg' =>$list->customResult,
+            'msg'  => $list->customResult,
             'data' => [
                 'apiVersion' => 20200128,
-                'valid' => $list->res == 0 ? true : false
+                'valid'      => $list->res == 0 ? true : false
             ]
         ];
         return $data;
