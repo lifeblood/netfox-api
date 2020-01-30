@@ -44,14 +44,31 @@ class NativeWebDataProvider extends BaseModel
     {
         $type   = [1 => null, 2 => null];
         $params = [':UserID' => $userId, ':TypeID' => $typeId];
-        try {
-            $type[$typeId] = DB::connection(self::$db)->select("exec NET_PW_GetDayRankingData :UserID, :TypeID", $params);
-        } catch (\Illuminate\Database\QueryException $e) {
-            if ($e->getCode() == 'IMSSP') {   //SQLSTATE[IMSSP]: The active result for the query contains no fields.
-                $type[$typeId] = [];
+        $isRank = false;
+        $results = [];
+        $pdo = DB::connection(self::$db)->getPdo();
+        $result = $pdo->prepare("exec NET_PW_GetDayRankingData :UserID, :TypeID");
+        $result->execute($params);
+
+        $i = 0;
+        do {
+            if ($i == 1) {
+                $isRank = true;
             }
-        }
-        $isRank = count($type[$typeId]) ? true : false;
+            foreach ($result->fetchall(\PDO::FETCH_ASSOC) as $res) {
+                array_push($results, $res);
+            }
+            $i++;
+        } while ($result->nextRowset());
+        $type[$typeId] = $results;
+//        try {
+//            $type[$typeId] = DB::connection(self::$db)->select("exec NET_PW_GetDayRankingData :UserID, :TypeID", $params);
+//        } catch (\Illuminate\Database\QueryException $e) {
+//            if ($e->getCode() == 'IMSSP') {   //SQLSTATE[IMSSP]: The active result for the query contains no fields.
+//                $type[$typeId] = [];
+//            }
+//        }
+//        $isRank = count($type[$typeId]) ? true : false;
         $data   = [
             'code' => 0,
             'msg'  => '',

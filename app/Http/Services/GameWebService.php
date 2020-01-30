@@ -15,7 +15,7 @@ class GameWebService
      * PHP Patterns: Singleton ( 单例模式 )
      * 静态成员变量 保存全局实例
      */
-    private static $instance = null;
+    private static $_instance;
     private static $classPath = 'App\\Http\\Services\\GameWeb\\';
 
     /**
@@ -32,13 +32,14 @@ class GameWebService
      */
     public static function getInstance($serviceName)
     {
-        if (is_null(static::$instance)) {
-            static::$instance = static::$classPath . $serviceName;
+        //不能用 is_null 判断，会导致phpunit不识别单例
+        if (!(self::$_instance instanceof self)) {
+            static::$_instance = static::$classPath . $serviceName .'Service';
         }
 
-        Log::error('getInstance: ' . static::$instance);
+        //Log::error('getInstance: ' . static::$_instance);
 
-        return static::$instance;
+        return static::$_instance;
     }
 
     /**

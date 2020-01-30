@@ -41,6 +41,7 @@ class PlatformDataProvider
 
 
     /**
+     * 获取邮件列表
      * @param $userId
      * @param $index
      * @param $size
@@ -49,8 +50,8 @@ class PlatformDataProvider
     public static function getMailList($userId, $index, $size)
     {
         $list = DB::connection(self::$db)->table('UserMail')
-            ->select('OrderAmount AS Amount', 'OrderStatus AS OrderStates', 'ApplyDate AS PayTime')
-            ->selectRaw('type =3')
+            ->select('*')
+            //->selectRaw('type =3')
             ->where('UserID', '=', $userId)
             ->where('MState', '<', 3)
             ->orderByDesc('MState')
@@ -70,5 +71,19 @@ class PlatformDataProvider
         exec @res = NET_PW_DealMail @dwUserID=:dwUserID, @mId=:mId, @state=:state, @strErrorDescribe=@customResult OUTPUT; select @res as code, @customResult as msg", $params);
       //dd($res);
         return current($res);
+    }
+
+    /**
+     * 获取游戏列表
+     * @return \Illuminate\Support\Collection
+     */
+    public static function getGameList() {
+       $res = DB::connection(self::$db)->table('MobileKindItem')
+            ->select('*')
+            ->where('Nullity', '=', '0')
+            ->orderBy('SortID', 'ASC')
+            ->orderByDesc('KindID')
+            ->get();
+       return $res;
     }
 }

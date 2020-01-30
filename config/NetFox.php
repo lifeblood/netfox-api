@@ -47,62 +47,156 @@ return [
     ],
 
     'action' => [
-        'getgamelist' => "getGameList",                       //[完成]获取游戏列表  client/base/src/app/views/WelcomeScene.lua
+        'getgamelist' => [
+            'serviceName' => 'GetGameList',
+            'testCase' => 'action=getgamelist',
+        ],                                                    //[完成] 获取游戏列表  client/base/src/app/views/WelcomeScene.lua
 
-        'getagentinfo' => "getAgentInfo",                     //[完成] 获取代理信息 plaza/models/agent/AgentMsg.lua
-        'getreward'    => "getReward",                        //[完成] 获取代理奖励
-        'rewardrbill'  => "rewardrBill",                      //[完成] 获取领奖列表记录
-        'rewardrecord' => "rewardRecord",                     //[完成] 查下级/推广明细
-        'agentrank'    => "agentRank",                        //[完成] 获取推广排行榜信息
+        'getagentinfo' => [
+            'serviceName' => 'GetAgentInfo',
+            'testCase' => 'action=getagentinfo&userid={userId}',
+        ],                                                    //[完成] 获取代理信息 plaza/models/agent/AgentMsg.lua
+        'getreward'    => [
+            'serviceName' => 'GetReward',
+            'testCase' => 'action=getreward&userid={userId}',
+        ],                                                    //[完成] 获取代理奖励
+        'rewardrbill'  => [
+            'serviceName' => 'RewardrBill',
+            'testCase' => 'action=rewardrbill&userid={userId}',
+        ],                                                    //[完成] 获取领奖列表记录
+        'rewardrecord' => [
+            'serviceName' => 'RewardRecord',
+            'testCase' => 'action=rewardrecord&userid={userId}',
+        ],                                                    //[完成] 查下级/推广明细
+        'agentrank'    => [
+            'serviceName' => 'AgentRank',
+            'testCase' => 'action=agentrank&userid={userId}&type=1',
+        ],                                                    //[完成] 获取推广排行榜信息
 
-        'getmaillist' => "getMailList",                       //[完成] 获取邮件列表 loading时候加载   plaza/models/PlazaUIConfig.lua
+        'getmaillist' => [
+            'serviceName' => 'GetMailList',
+            'testCase' => 'action=getmaillist&userid={userId}&type=1',
+        ],                                                     //[完成] 获取邮件列表 loading时候加载   plaza/models/PlazaUIConfig.lua
 
-        'getuserwealth' => "getUserWealth",                   //[完成] 查询用户财富    plaza/views/ClientScene.lua
+        'getuserwealth' => [
+            'serviceName' => 'GetUserWealth',
+            'testCase' => 'action=getuserwealth&userid={userId}',
 
-        'getcode' => "getCode",                               //[完成] 获取手机验证码       plaza/views/layer/logon/AccountRegisteLayer.lua
+        ],                                                      //[完成] 查询用户财富    plaza/views/ClientScene.lua
 
-        'SetMailState' => "SetMailState",                     //[完成] 设置邮件状态  plaza/views/layer/plaza/MailDesLayer.lua
+        'getcode' => [
+            'serviceName' => 'GetCode',
+            'testCase' => 'action=getcode&Mobile={Mobile}&typeid=0',
+        ],                                                      //[完成] 获取手机验证码       plaza/views/layer/logon/AccountRegisteLayer.lua
 
-        'getsharereward'     => "getShareReward",             //[完成] 分享玩家彩金  plaza/views/layer/plaza/SpreadLayer.lua
-        'sharetimesreward'   => "shareTimesReward",           //[完成] 分享时间奖励  plaza/views/layer/plaza/SpreadLayer.lua
+        'SetMailState' => [
+            'serviceName' => 'SetMailState',
+            'testCase' => 'action=SetMailState&userid={userId}&mid={mid}&state={state}',
+        ],                                                       //[完成] 设置邮件状态  plaza/views/layer/plaza/MailDesLayer.lua
+
+        'getsharereward'     => [
+            'serviceName' => "GetShareReward",
+            'testCase' => 'action=getsharereward&userid={userId}',
+        ],                                                      //[完成] 分享玩家彩金  plaza/views/layer/plaza/SpreadLayer.lua
+        'sharetimesreward'   => [
+            'serviceName' => 'ShareTimesReward',
+            'testCase' => 'action=sharetimesreward&userid={userId}',
+        ],                                                      //[完成] 分享时间奖励  plaza/views/layer/plaza/SpreadLayer.lua
         'receivespreadaward' => "receivespreadaward",         //[没用到] 接受预先奖励  plaza/views/layer/plaza/SpreadLayer.lua
 
-        'GetUserInfo' => "GetUserInfo",                       //[完成] 获取玩家信息  plaza/views/layer/plaza/club/ClubTableInfoLayer.lua
+        'GetUserInfo' => [
+            'serviceName' => 'GetUserInfo',
+            'testCase' => 'action=GetUserInfo&userid={userId}',
+        ],                                                     //[完成] 获取玩家信息  plaza/views/layer/plaza/club/ClubTableInfoLayer.lua
 
-        'GetGroupBattleRecord' => "GetGroupBattleRecord",     //[没用到] 获取小组战斗记录  plaza/views/layer/plaza/club/ClubMyDetailLayer.lua
+        'GetGroupBattleRecord' => "GetGroupBattleRecord",      //[没用到] 获取小组战斗记录  plaza/views/layer/plaza/club/ClubMyDetailLayer.lua
 
-        'getrankingdata' => "getRankingData",                 //[完成] 获得排名数据  plaza/views/layer/plaza/RankListLayer.lua
+        'getrankingdata' => [
+            'serviceName' => 'GetRankingData',
+            'testCase' => 'action=getrankingdata&userid={userId}&typeid={typeid}',
+        ],                                                     //[完成] 获得排名数据  plaza/views/layer/plaza/RankListLayer.lua
 
         'setpassword'          => "setpassword",              //[没用到] 设置密码  plaza/views/layer/plaza/AgentLayer.lua
         'bindagent'            => "bindagent",                //[没用到]绑定代理  plaza/views/layer/plaza/AgentLayer.lua
         'getreturnawardconfig' => "getreturnawardconfig",     //[没用到]返利比例  plaza/views/layer/plaza/AgentLayer.lua
         'getnicknamebygameid'  => "getnicknamebygameid",      //[没用到]获取昵称
 
-        'buydiam' => "buyDiam",                               //[完成] 金币购买  plaza/views/layer/plaza/DiamondBuyLayer.lua
+        'buydiam' => [
+            'serviceName' => 'BuyDiam',
+            'testCase' => 'action=buydiam&userid={userId}',
+        ],                               //[完成] 金币购买  plaza/views/layer/plaza/DiamondBuyLayer.lua
 
-        'getturntablerecord' => "getTurnTableRecord",         //[完成] 自己的得奖记录  plaza/views/layer/plaza/LuckyLayer.lua
-        'getturntablemsg'    => "getTurnTableMsg",            //[完成] 实时滚动数据  plaza/views/layer/plaza/LuckyLayer.lua
-        'getturntables'      => "getTurnTables",              //[完成] 转盘数据  plaza/views/layer/plaza/LuckyLayer.lua
-        'startturntable'     => "startTurnTable",             //[完成]启动转盘
+        'getturntablerecord' => [
+            'serviceName' => 'GetTurnTableRecord',
+            'testCase' => 'action=getturntablerecord&userid={userId}',
+        ],                                                    //[完成] 自己的得奖记录  plaza/views/layer/plaza/LuckyLayer.lua
+        'getturntablemsg'    => [
+            'serviceName' => 'GetTurnTableMsg',
+            'testCase' => 'action=getturntablemsg&userid={userId}',
+        ],                                                    //[完成] 实时滚动数据  plaza/views/layer/plaza/LuckyLayer.lua
+        'getturntables'      => [
+            'serviceName' => 'GetTurnTables',
+            'testCase' => 'action=getturntables&userid={userId}',
+        ],                                                    //[完成] 转盘数据  plaza/views/layer/plaza/LuckyLayer.lua
+        'startturntable'     => [
+           'serviceName' => "StartTurnTable",
+           'testCase' => 'action=startturntable&userid={userId}&index={index}',
+        ],                                                    //[完成]启动转盘
 
-        'imgpay' => "imgPay",                                 //[完成] QRPAY图片支付     plaza/views/layer/plaza/recharge/RechargeDetail.lua
+        'imgpay' => [
+            'serviceName' => "ImgPay",
+            'testCase' => 'action=imgpay&userid={userId}',
+        ],                                                    //[完成] QRPAY图片支付     plaza/views/layer/plaza/recharge/RechargeDetail.lua
 
-        'paylist' => "payList",                               //[完成] 支付列表  plaza/views/layer/plaza/recharge/RechargeLayer.lua
+        'paylist' => [
+            'serviceName' => 'payList',
+            'testCase' => 'action=paylist&userid={userId}',
+        ],                                                    //[完成] 支付列表  plaza/views/layer/plaza/recharge/RechargeLayer.lua
 
-        'bindingpayee' => "bindingPayee",                     //[完成] 绑定支付宝 plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
-        'withdrawal'   => "withDrawal",                       //[完成] 提现      plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
-        'getvilabet'   => "getVitality",                      //[完成] 取得活力      plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
+        'bindingpayee' => [
+            'serviceName' => 'BindingPayee',
+            'testCase' => 'action=bindingpayee&userid={userId}',
+        ],                                                    //[完成] 绑定支付宝 plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
+        'withdrawal'   => [
+            'serviceName' => 'WithDrawal',
+            'testCase' => 'action=withdrawal&userid={userId}',
+        ],                                                    //[完成] 提现      plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
+        'getvilabet'   => [
+            'serviceName' => 'GetVitality',
+            'testCase' => 'action=getvilabet&userid={userId}',
+            ],                                                 //[完成] 取得活力      plaza/views/layer/plaza/recharge/WithdrawalLayer.lua
 
-        'bankpay' => "bankPay",                               //[完成] 银行支付信息 plaza/views/layer/plaza/recharge/DetailBank.lua
+        'bankpay' => [
+            'serviceName' => 'BankPay',
+            'testCase' => 'action=bankpay&userid={userId}',
+        ],                                                     //[完成] 银行支付信息 plaza/views/layer/plaza/recharge/DetailBank.lua
 
-        'drawalrecord' => "drawalRecord",                     //[完成] 提款记录   plaza/views/layer/plaza/recharge/RecordLayer.lua
-        'payrecord'    => "payRecord",                        //[完成] 支付记录   plaza\views\layer\plaza\recharge\RecordLayer.lua
+        'drawalrecord' => [
+            'serviceName' => 'DrawalRecord',
+            'testCase' => 'action=drawalrecord&userid={userId}&index={index}',
+        ],                                                     //[完成] 提款记录   plaza/views/layer/plaza/recharge/RecordLayer.lua
+        'payrecord'    => [
+            'serviceName' => 'PayRecord',
+            'testCase' => 'action=payrecord&userid={userId}&index={index}',
+        ],                                                     //[完成] 支付记录   plaza\views\layer\plaza\recharge\RecordLayer.lua
 
-        'getvipinfo'   => "getVipInfo",                       //[完成] 获取VIP信息    plaza/views/layer/plaza/VipLayer.lua
-        'getvipreward' => "getVipReward",                     //[完成] 获得VIP奖励    plaza/views/layer/plaza/VipLayer.lua
+        'getvipinfo'   => [
+            'serviceName' => 'GetVipInfo',
+            'testCase' => 'action=getvipinfo&userid={userId}',
+            ],                                                  //[完成] 获取VIP信息    plaza/views/layer/plaza/VipLayer.lua
+        'getvipreward' => [
+            'serviceName' => 'GetVipReward',
+            'testCase' => 'action=getvipreward&userid={userId}&type={type}',
+        ],                                                      //[完成] 获得VIP奖励    plaza/views/layer/plaza/VipLayer.lua
 
-        'recordtreasuretrade' => "recordTreasureTrade",       //[完成] 金币流水记录   plaza/views/layer/plaza/ucenter/TurnoverInfoLayer.lua
-        'recorddiamondstrade' => "recordDiamondsTrade",       //[完成]  钻石流水记录
+        'recordtreasuretrade' => [
+            'serviceName' => 'RecordTreasureTrade',
+            'testCase' => 'action=recordtreasuretrade&userid={userId}',
+        ],                                                     //[完成] 金币流水记录   plaza/views/layer/plaza/ucenter/TurnoverInfoLayer.lua
+        'recorddiamondstrade' => [
+            'serviceName' => "RecordDiamondsTrade",
+            'testCase' => 'action=recorddiamondstrade&userid={userId}',
+            ],                                                  //[完成]  钻石流水记录
 
         'getbattlerecord' => "getbattlerecord",               //请求房间数据    plaza/views/layer/plaza/video/VideoMarkListLayer.lua
 
@@ -111,8 +205,14 @@ return [
         'receiverankingaward'  => "receiverankingaward",      //领取奖励  plaza/views/layer/plaza/RewardLayer.lua
         'receiveregistergrant' => "receiveregistergrant",     //获得注册补助金  plaza/views/layer/plaza/RewardLayer.lua
 
-        'GetMobileLoginData'  => "getMobileLoginData",        //[完成] 获取手机登录时间    plaza/views/LogonScene.lua
-        'getmobileloginlater' => "getMobileLoginLater",       //[完成] 获取手机端登录后数据 loading时候加载  plaza/views/LogonScene.lua
+        'GetMobileLoginData'  => [
+            'serviceName' => 'GetMobileLoginData',
+            'testCase' => 'action=GetMobileLoginData&userid={userId}',
+        ],                                                    //[完成] 获取手机登录时间    plaza/views/LogonScene.lua
+        'getmobileloginlater' => [
+            'serviceName' => 'GetMobileLoginLater',
+            'testCase' => 'action=getmobileloginlater&userid={userId}',
+        ],                                                     //[完成] 获取手机端登录后数据 loading时候加载  plaza/views/LogonScene.lua
 
         'getquestionandanswerlist' => "getquestionandanswerlist", // [没有用到] 领取奖励  plaza/views/layer/plaza/HelpLayer.lua
         'getonlinewechatlist' => "getonlinewechatlist",       //[没有用到] 获取在线微信列表  plaza/views/layer/plaza/ShopLayer.lua

@@ -9,7 +9,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Application Test Suite">
+        <testsuite name="NetFOX API GameWeb Test Suite">
             <directory suffix="Test.php">./tests/GameWeb</directory>
         </testsuite>
     </testsuites>
@@ -21,6 +21,6 @@
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="CACHE_DRIVER" value="array"/>
-        <env name="QUEUE_CONNECTION" value="async"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
     </php>
 </phpunit>

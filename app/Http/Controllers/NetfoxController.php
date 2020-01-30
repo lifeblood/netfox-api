@@ -46,12 +46,14 @@ class NetfoxController extends Controller
     public function NewMoblieInterface(Request $request)
     {
         try {
-            $action = $this->funcMap[$request->all()['action']];
+            $actionName = $request->input('action');
+            $action = $this->funcMap[$actionName]['serviceName'];
+
             //$this->data = $this->gameService->{$action}($request);
             $service = GameWebService::getInstance($action);
             $this->data = $service::{$action}($request);
         } catch (\Exception $e) {
-            Log::error('JSON: xxxx' . $e->getPrevious());
+            Log::error('NewMoblieInterface error: ' . $e->getMessage());
             $this->data['msg'] .= $e->getMessage();
         }
         return self::json($this->data);
