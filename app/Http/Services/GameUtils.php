@@ -16,10 +16,36 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 
 
-class GameUtils
+class GameUtils extends BaseService
 {
     private static $multiple = 1000;
 
+
+    /**
+     * 接口签名验证
+     * @param string $signStr
+     * @param string $signData
+     * @return bool
+     */
+    public static function VerifySignData(string $signStr, string $signData) {
+        $md5Str = strtoupper(md5($signStr . '&' . env('APP_MobileInterfaceKey')));
+        //dd($md5Str);
+        if ( empty($signData) || strtolower($md5Str) != strtolower($signData)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 生成SIGN 用于单元测试
+     * @param string $signStr
+     * @return string
+     */
+    public static function getSignData(string $signStr) {
+        $md5Str = strtoupper(md5($signStr . '&' . env('APP_MobileInterfaceKey')));
+        //dd($md5Str);
+        return $md5Str;
+    }
 
     /**
      * 获取推广链接

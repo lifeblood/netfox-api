@@ -20,6 +20,6 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('apilist', 'NetfoxController@ApiList');
 });
 
-$router->group(['prefix' => 'WS'], function () use ($router) {
+$router->group(['prefix' => 'WS', 'middleware' => 'auth'], function () use ($router) {
     $router->get('NewMoblieInterface.ashx', 'NetfoxController@NewMoblieInterface');
 });

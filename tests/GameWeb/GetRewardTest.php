@@ -15,14 +15,14 @@ class GetRewardTest extends TestCase
     {
         $url = parent::TEST_URL;
         $action = parent::getConfigAction();
-        $testCase = $url . $action[$this->serviceName]['testCase'];
-
+        $testCase = $action[$this->serviceName]['testCase'];
         $postVars = [
             '{userId}' => parent::TEST_USER_ID
         ];
-
         $testCase = strtr($testCase, $postVars);
-
+        $sign = \App\Http\Services\GameUtils::getSignData('?' . $testCase);
+        $testCase = $url . $testCase . '&sign=' . $sign;
+        print $testCase;
         $this->get($testCase);
 
         $this->seeJson([

@@ -22,11 +22,21 @@ class RewardRecordService extends BaseService
         $userId = $request->all()['userid'];
         $index = $request->all()['index'] ?? 1;
         $list = AccountsDataProvider::getRewardRecord($userId, $index);
+
+        foreach ($list->items() as $key => $item) {
+            $agentReward[] = [
+                'NicekName' => $item->NickName,
+                'GameId' => $item->GameID,
+                'person' => $item->BeggarNumber,
+                'AllMoney' => $item->BackMoney,
+                'personMoney' => ($item->AllReward + $item->Reward) * 0.3
+            ];
+        }
         $data = self::getJsonSuccess();
         $data['data'] = [
             'apiVersion' => 20200118,
             'valid'      => true,
-            'list'       => $list->items(),
+            'list'       => $agentReward,
             'Count'  => $list->lastPage(),
             'pageIndex'      => $list->currentPage()
         ];

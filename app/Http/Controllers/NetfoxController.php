@@ -52,6 +52,8 @@ class NetfoxController extends Controller
             //$this->data = $this->gameService->{$action}($request);
             $service = GameWebService::getInstance($action);
             $this->data = $service::{$action}($request);
+            Log::info('getInstance: ' . $request->getRequestUri());
+
         } catch (\Exception $e) {
             Log::error('NewMoblieInterface error: ' . $e->getMessage());
             $this->data['msg'] .= $e->getMessage();

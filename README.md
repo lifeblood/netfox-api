@@ -1,10 +1,13 @@
 # 网狐前端COCOS API /  Powered by Lumen PHP Framework
 
-This project promotes the best practices that follow the SOLID principles and clean architecture. It encourages writing clean and idiomatic PHP code.
+## 重构目的
+
+跳出MS平台，拥抱Linux,提升系统稳定性和可扩展性，为以后发展包网探路。
+
 
 ## 项目遵循面向对象设计五个基本原则
 
-| || |
+| I | LOVE| YOU |
 | :-----| ----: | :----: |
 | S | 单一功能原则 | 认为对象应该仅具有一种单一功能的概念。 |
 | O | 开闭原则 | 认为“软件体应该是对于扩展开放的，但是对于修改封闭的”的概念。 |
@@ -14,9 +17,9 @@ This project promotes the best practices that follow the SOLID principles and cl
 
 ## 涉及数据库
 
-SQL SERVER 2008 R2
+关系数据库：SQL SERVER 2008 R2
 
-Redis
+缓存数据库: Redis
 
 ## PHPUnit 单元测试
 
@@ -25,13 +28,18 @@ Redis
 
 单元测试程序目录： ./tests/GameWeb/*
 配置文件：phpunit.xml
-执行命令：phpunit
+批量执行命令：phpunit
+单个执行命令：phpunit ./tests/GameWeb/RewardRecordTest.php
+
+执行结果：
+phpunit 
+PHPUnit 7.0.3 by Sebastian Bergmann and contributors.
+............................                                      28 / 28 (100%)
+
 ````
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-## 接口列表 (重构进度)
+## 接口列表如下：
 
 ```php
     'action' => [

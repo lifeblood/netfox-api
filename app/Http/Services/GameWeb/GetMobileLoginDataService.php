@@ -49,9 +49,10 @@ class GetMobileLoginDataService extends BaseService
         foreach ($row as $key => $item) {
             if (!array_key_exists($item['StatusName'], $statusNameMap))
                 continue;
-            array_push($data, [
-                $statusNameMap[$item['StatusName']] => $item['StatusValue']
-            ]);
+//            array_push($data, [
+//                $statusNameMap[$item['StatusName']] => $item['StatusValue']
+//            ]);
+            $data[$statusNameMap[$item['StatusName']]] = $item['StatusValue'];
         }
         return $data;
     }
@@ -74,10 +75,12 @@ class GetMobileLoginDataService extends BaseService
         foreach ($row as $key => $item) {
             if (!array_key_exists($item['OptionName'], $optionNameMap))
                 continue;
-            array_push($data, [
-                $optionNameMap[$item['OptionName']] => $item['OptionValue']
-            ]);
+//            array_push($data, [
+//                $optionNameMap[$item['OptionName']] => $item['OptionValue']
+//            ]);
+            $data[$optionNameMap[$item['OptionName']]] = $item['OptionValue'];
         }
+
         return $data;
     }
 
@@ -88,7 +91,7 @@ class GetMobileLoginDataService extends BaseService
         $device          = $request->input('device');
         $PlatformType    = $request->input('PlatformType', 1);
         $webConfig       = NativeWebDataProvider::getConfigInfo('WebSiteConfig');  //网站站点配置
-        $MobileConfig    = NativeWebDataProvider::getConfigInfo('GetMobileConfig');  //网站站点配置
+        $MobileConfig    = NativeWebDataProvider::getConfigInfo('MobilePlatformVersion');  //网站站点配置
         $imageServerHost = $webConfig->Field2;
 
         //获取登录数据

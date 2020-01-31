@@ -8,7 +8,7 @@
 
 namespace App\Http\Services;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\URL;
 class GameWebService
 {
     /**
@@ -36,8 +36,6 @@ class GameWebService
         if (!(self::$_instance instanceof self)) {
             static::$_instance = static::$classPath . $serviceName .'Service';
         }
-
-        //Log::error('getInstance: ' . static::$_instance);
 
         return static::$_instance;
     }
