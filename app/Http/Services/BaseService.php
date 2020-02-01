@@ -9,7 +9,7 @@
 namespace App\Http\Services;
 
 
-class BaseService
+abstract class BaseService
 {
 
     /**

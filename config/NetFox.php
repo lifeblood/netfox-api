@@ -198,7 +198,10 @@ return [
             'testCase' => 'action=recorddiamondstrade&userid={userId}',
             ],                                                  //[完成]  钻石流水记录
 
-        'getbattlerecord' => "getbattlerecord",               //请求房间数据    plaza/views/layer/plaza/video/VideoMarkListLayer.lua
+        'getbattlerecord' => [
+            'serviceName' => 'GetBattleRecord',
+            'testCase' => 'action=getbattlerecord&typeid={typeid}&userid={userId}',
+        ],                                                       //请求房间数据    plaza/views/layer/plaza/video/VideoMarkListLayer.lua
 
         'GetGameIntroList' => "GetGameIntroList",             //请求玩法列表  plaza/views/layer/plaza/PlazaIntroductionLayer.lua
 

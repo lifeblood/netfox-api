@@ -10,7 +10,7 @@ namespace App\Http\Models;
 use Illuminate\Support\Facades\DB;
 
 
-class BaseModel
+abstract class BaseModel
 {
     /**
      * 获取事务等多个SQL RESULT SETS

@@ -38,16 +38,18 @@ class Authenticate extends BaseService
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $sign = $request->input('sign', 0);
-        $params = str_replace($request->getPathInfo(), '', $request->getRequestUri());
-        $params = Str::before($params, '&sign=');
-        $isValid = GameUtils::VerifySignData($params, $sign);
-        if (!$isValid) {
-            $data = self::getJsonFails();
-            $data['msg'] = '抱歉，接口签名错误!';
-            return $data;
+        // debug模式不验证API签名
+        if (!env('APP_DEBUG')) {
+            $sign    = $request->input('sign', 0);
+            $params  = str_replace($request->getPathInfo(), '', $request->getRequestUri());
+            $params  = Str::before($params, '&sign=');
+            $isValid = GameUtils::VerifySignData($params, $sign);
+            if (!$isValid) {
+                $data        = self::getJsonFails();
+                $data['msg'] = '抱歉，接口签名错误!';
+                return $data;
+            }
         }
-
 
 //        if ($this->auth->guard($guard)->guest()) {
 //            return response('Unauthorized.', 401);

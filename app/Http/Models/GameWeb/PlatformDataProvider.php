@@ -8,10 +8,11 @@
 
 namespace App\Http\Models\GameWeb;
 
+use App\Http\Models\BaseModel;
 use Illuminate\Support\Facades\DB;
 
 
-class PlatformDataProvider
+class PlatformDataProvider extends BaseModel
 {
     private static $db = 'WHQJPlatformDB';
 
@@ -85,5 +86,20 @@ class PlatformDataProvider
             ->orderByDesc('KindID')
             ->get();
        return $res;
+    }
+
+    /**
+     * @param string $userId
+     * @param int $typeId
+     * @return array
+     */
+    public static function getHallBattleRecord(string $userId, int $typeId): array {
+        $sql = "exec NET_PW_GetHallBattleRecord :dwUserID, :dwTypeID";
+        $params = [
+            ':dwUserID'  => $userId,
+            ':dwTypeID'     => $typeId,
+        ];
+        $data = parent::getMultiResultSet(self::$db, $sql, $params);
+        return $data;
     }
 }
