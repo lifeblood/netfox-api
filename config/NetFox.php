@@ -29,11 +29,11 @@ return [
     ],
     'SMS'         => [ //短信发送
         'channel' => 'QixintongMessage',  //默认通道，企信通
-        'SMS_content' => '【红牛科技】您的验证码:{code}', //短信模板
+        'SMS_content' => '【xx科技】您的验证码:{code}', //短信模板
         'qixintong'   => [ // 渠道1, 企信通
             'SMS_uid' => '46',
-            'SMS_acc' => 'shzx79',
-            'SMS_pwd' => '123456',
+            'SMS_acc' => 'test',
+            'SMS_pwd' => 'test',
         ]
     ],
     'redisPrefix' => 'NetFox',
